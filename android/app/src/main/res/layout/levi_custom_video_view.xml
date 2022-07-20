@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/video_wrapper">
+        <com.videoplayer.CustomVideoView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:id="@+id/leviCustomVideoView"/>
+
+        <ImageView
+            android:id="@+id/posterImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bg_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <ImageButton
+            android:id="@+id/pause_play_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/pause"
+            android:scaleType="fitXY"
+            android:tag="@drawable/pause"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/volume_button"
+            android:background="@drawable/volume"
+            android:scaleType="fitXY"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:tag="@drawable/volume"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+</FrameLayout>
