@@ -82,22 +82,22 @@ public class CustomVideoView extends VideoView {
         int width = containerWidth;
         int height = containerHeight;
 
-//        float videoAspectRatio = (float)
-        float viewAspectRatio = (float) width / height;
-        float aspectDeformation = viewAspectRatio / viewAspectRatio -1;
+        Log.d("@@@", "onMeasure: mVideoWidth: " + mVideoWidth);
+        Log.d("@@@", "onMeasure: mVideoHeight: " + mVideoHeight);
+        Log.d("@@@", "onMeasure: containerWidth: " + containerWidth);
+        Log.d("@@@", "onMeasure: containerHeight: " + containerHeight);
+        Log.d("@@@", "onMeasure: width: " + width);
+        Log.d("@@@", "onMeasure: height: " + height);
 
-        if(Math.abs(aspectDeformation) <= 0.01f) {
-            // video distortion is okay already
-            setMeasuredDimension(mVideoWidth, mVideoHeight);
-            return;
-        }
+        float videoAspectRatio = (float) mVideoWidth / mVideoHeight;
+        Log.d("@@@", "onMeasure: videoAspectRatio: " + videoAspectRatio);
 
         if (displayMode == DisplayMode.contain) {
             if (mVideoWidth > 0 && mVideoHeight > 0) {
-                if (mVideoWidth * containerHeight > containerWidth * mVideoHeight) {
-                    mVideoHeight = containerWidth * mVideoHeight / mVideoWidth;
-                } else if (mVideoWidth * containerHeight < containerWidth * mVideoHeight) {
-                    mVideoWidth = containerHeight * mVideoWidth / mVideoHeight;
+                if (mVideoWidth * height > width * mVideoHeight) {
+                    height = width * mVideoHeight / mVideoWidth;
+                } else if (mVideoWidth * height < width * mVideoHeight) {
+                    width = height * mVideoWidth / mVideoHeight;
                 } else {
                     // aspect ratio is correct
                 }
@@ -105,64 +105,27 @@ public class CustomVideoView extends VideoView {
         } else if (displayMode == DisplayMode.none) {
             // just use the default screen width and screen height
             if (mVideoWidth > 0 && mVideoHeight > 0) {
-                mVideoHeight = containerHeight;
-                mVideoWidth = containerWidth;
+                height = mVideoHeight;
+                width = mVideoWidth;
             }
         } else if (displayMode == DisplayMode.cover) {
-            width = (int) (containerHeight * viewAspectRatio);
-
-            if(width < containerWidth) {
-                float scaleFactor = (float) containerWidth / width;
-                width = (int) (width * scaleFactor);
-                height = (int) (containerHeight * ( scaleFactor ));
+            // zoom video
+            if (mVideoWidth > 0 && mVideoHeight > 0 ) {
+                if(containerWidth > containerHeight) {
+                    height = (int) (containerWidth * videoAspectRatio);
+                } else {
+                    width = (int) (containerHeight * videoAspectRatio);
+                }
             }
         }
+        Log.d("@@@", "onMeasure: mVideoWidth2: " + mVideoWidth);
+        Log.d("@@@", "onMeasure: mVideoHeight2: " + mVideoHeight);
+        Log.d("@@@", "onMeasure: containerWidth2: " + containerWidth);
+        Log.d("@@@", "onMeasure: containerHeight2: " + containerHeight);
+        Log.d("@@@", "onMeasure: width2: " + width);
+        Log.d("@@@", "onMeasure: height2: " + height);
         setMeasuredDimension(width, height);
     }
-
-//    @Override
-//    public void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-//        int width = getDefaultSize(0, widthMeasureSpec);
-//        int height = getDefaultSize(0, heightMeasureSpec);
-//        Log.d("@@@", "onMeasure: width: 1: " + width);
-//        Log.d("@@@", "onMeasure: height: 1: " + height);
-//        if (displayMode == DisplayMode.contain) {
-//            if (mVideoWidth > 0 && mVideoHeight > 0) {
-//                if (mVideoWidth * height > width * mVideoHeight) {
-//                    height = width * mVideoHeight / mVideoWidth;
-//                } else if (mVideoWidth * height < width * mVideoHeight) {
-//                    width = height * mVideoWidth / mVideoHeight;
-//                } else {
-//                    // aspect ratio is correct
-//                }
-//            }
-//        } else if (displayMode == DisplayMode.none) {
-//            // just use the default screen width and screen height
-//            if (mVideoWidth > 0 && mVideoHeight > 0) {
-//                height = mVideoHeight;
-//                width = mVideoWidth;
-//            }
-//        } else if (displayMode == DisplayMode.cover) {
-//            // zoom video
-//            Log.d("@@@", "onMeasure: mVideoWidth: " + mVideoWidth);
-//            Log.d("@@@", "onMeasure: mVideoHeight: " + mVideoHeight);
-//            Log.d("@@@", "onMeasure: width: 2: " + width);
-//            Log.d("@@@", "onMeasure: height: 2: " + height);
-//            if (mVideoWidth > 0 && mVideoHeight > 0 && mVideoWidth < width ) {
-////                height = mVideoHeight * width / mVideoWidth;
-//                Log.d("@@@", "onMeasure: width: 3: " + width);
-//                Log.d("@@@", "onMeasure: height: 3: " + height);
-//                if(mVideoWidth == mVideoHeight && width > height) {
-//                    height = mVideoHeight * width / mVideoWidth;
-//                } else {
-//                    width = mVideoWidth * height / mVideoHeight;
-//                }
-//            }
-//        }
-//        Log.d("@@@", "onMeasure: width: 4: " + width);
-//        Log.d("@@@", "onMeasure: height: 4: " + height);
-//        setMeasuredDimension(width, height);
-//    }
 }
 
 
