@@ -9,15 +9,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.facebook.react.uimanager.ThemedReactContext;
 
-public class CustomVideoLayout extends FrameLayout {
+public class CustomVideoLayout extends RelativeLayout {
     private ThemedReactContext mThemedReactContext;
-    private FrameLayout screenLayout;
+    private RelativeLayout screenLayout;
     private CustomVideoView videoView;
     private ImageView imageView;
     private ImageButton playPauseButton;
@@ -30,7 +31,7 @@ public class CustomVideoLayout extends FrameLayout {
     public CustomVideoLayout(@NonNull ThemedReactContext context, Activity activity) {
         super(context);
         mThemedReactContext = context;
-        screenLayout = (FrameLayout) activity.getLayoutInflater().inflate(R.layout.levi_custom_video_view, null);
+        screenLayout = (RelativeLayout) activity.getLayoutInflater().inflate(R.layout.levi_custom_video_view, null);
 
         this.addView(screenLayout);
         imageView = findViewById(R.id.posterImage);
